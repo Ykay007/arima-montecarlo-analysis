@@ -46,11 +46,18 @@ value_matrix=value.as_matrix()
 model = ARIMA(value_matrix, order=(0,1,0))
 model_fit = model.fit(disp=0)
 print(model_fit.summary())
-predictions=model_fit.predict(632, 731, typ='levels')
-predictions
-last100days=value[631:731]
+predictions=model_fit.predict(633, 731, typ='levels')
+predictions=np.array(predictions)
+last100days=value[632:731]
+last100days=np.array(last100days)
+len(predictions)
+len(last100days)
+deviation=(predictions-last100days)/last100days
+meandeviation=np.mean(deviation)
+meandeviation*100
 plt.plot(predictions)
-plt.plot(last100days)
+plt.legend(['Predicted'], loc='upper left')
+plt.title(r'ARIMA (0,1,0)')
 plt.show()
 
 #Monte Carlo Simulation
